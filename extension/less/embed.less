@@ -1,0 +1,148 @@
+@import 'mixins.less';
+
+@bgColor: rgb(30, 36, 43);
+
+#destiny-twitch-app {
+	//position: fixed;
+	//bottom: 0;
+	//right: 0;
+	//z-index: 9998;
+	color: #fff;
+
+	.btn-calibrate {
+		float: right;
+		cursor: pointer;
+	}
+
+	.dt-testing {
+		color: #ffce1f;
+		margin-bottom: 10px;
+	}
+
+	.dt-activity-description, .dt-activity-hash {
+		border-bottom: 1px solid;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+
+	.dt-tests {
+		padding: 10px 0;
+		img {
+			float: left;
+			max-width: 100%;//percentage(1/3);
+		}
+		.dt-test-stats {
+			clear: both;
+			display: block;
+		}
+	}
+
+	.dt-modal {
+		position: fixed;
+		z-index: 9999;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background: fade(rgb(18, 22, 27), 95%);
+	}
+	.dt-modal-hitarea {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+	}
+	.dt-modal-dialog {
+		.clear();
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		.vendor(transform, translateX(-50%) translateY(-50%));
+		padding: 20px;
+		background: fade(@bgColor, 90%);
+		* {
+			color: fade(#fff, 70%);
+		}
+	}
+	.dt-btn {
+		cursor: pointer;
+		color: #797F88;
+		padding: 5px 8px;
+		&.dt-btn-submit {
+			color: rgb(242, 193, 87);
+		}
+		&:hover {
+			color: #fff;
+		}
+	}
+	label {
+		display: block;
+		color: #fff;
+	}
+	input {
+		background: none;
+		border: none;
+		color: #fff;
+		.placeholder-rules({
+			color: fade(#fff, 90%);
+		});
+	}
+	.dt-calibrate-image {
+		display: block;
+		margin: auto;
+		border: 1px solid;
+		margin-bottom: 10px;
+		width: 316px;
+		height: 64px;
+		img {
+			width: 100%;
+		}
+	}
+	button {
+		background: none;
+		border-radius: 0;
+		border: 1px solid;
+		cursor: pointer;
+		outline: none !important;
+		&:hover {
+			color: #fff;
+		}
+	}
+	.controls {
+		display: inline-block;
+		margin-bottom: 10px;
+		padding: 0 10px;
+	}
+	.actions {
+		float: right;
+	}
+	.text-center {
+		text-align: center;
+	}
+}
+
+#capture-canvas {
+	//position: fixed;
+	width: 320px;
+	//bottom: 0;
+	//right: 0;
+}
+
+//body.Stream {
+	.stream-chat-gear-container {
+		.stats {
+			display: none;
+			padding: 1rem;
+			background: #181d25;
+		}
+	}
+	.stream-chat-gear-container[data-mode="stats"] {
+		.gear, .chat {
+			display: none;
+		}
+		.stats {
+			display: block;
+		}
+	}
+//}

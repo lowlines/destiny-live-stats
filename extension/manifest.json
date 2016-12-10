@@ -1,0 +1,39 @@
+{
+	"manifest_version": 2,
+	"name": "Destiny Live Stats",
+	"description": "A mod that adds extra features to Destiny Twitch streams.",
+	"version": "1.0",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "views/options.html"
+	},
+	"options_page": "views/options.html",
+	"background": {
+		"scripts": ["js/background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches": ["*://www.bungie.net/*/Community/Stream/*", "*://destiny-twitch.io/*"],
+			"css": ["css/embed.css"],
+			"js": ["libs/angular.min.js", "js/embed-min.js"]
+		},
+		{
+			"matches": ["*://player.twitch.tv/*", "*://destiny-twitch.io/*"],
+			"js": ["libs/resemble.js", "libs/ocrad.js", "js/watch-min.js"],
+			"all_frames": true
+		}
+	],
+	"permissions": [
+		"cookies",
+		"storage",
+		"tabs",
+		"*://*.twitch.tv/*",
+		"*://destiny-twitch.io/*"
+	],
+	"web_accessible_resources": [
+		"css/*",
+		"js/*",
+		"views/*",
+		"test/*"
+	]
+}

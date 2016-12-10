@@ -1,0 +1,53 @@
+<a ng-click="calibrate()" class="btn-calibrate">Calibrate</a>
+<div class="dt-testing">{{isTesting ? 'Test Mode' : 'Live Mode'}}</div>
+<div class="dt-activity" ng-if="activity">
+	<div class="dt-activity-name">{{activity.activityName}}</div>
+	<div class="dt-activity-description">{{activity.activityDescription}}</div>
+	<div class="dt-activity-type">{{activity.activityTypeName}}</div>
+</div>
+<div class="dt-activity-hash">ActivityHash: {{activityHash}}</div>
+<div class="dt-activity-mode">ActivityMode: {{activityMode}}</div>
+
+<div class="dt-statuses">
+	<div class="dt-status" ng-repeat="status in statuses">{{status.id}}: {{status.value}}</div>
+</div>
+
+<div class="dt-tests">
+	<div class="dt-test" ng-repeat="test in tests" dt-test>
+		<img ng-src="{{test.image}}" class="dt-test-source" />
+		<img ng-src="{{test.compToImage}}" ng-if="test.compToImage" class="dt-test-compare-to" />
+		<img ng-src="{{test.diffImage}}" ng-if="test.diffImage" class="dt-test-diff" />
+		<div class="dt-test-stats">{{diffPct}}</div>
+	</div>
+</div>
+
+<div class="dt-modal" ng-if="showCalibrate">
+	<div class="dt-modal-hitarea" ng-click="close()"></div>
+	<div class="dt-modal-dialog">
+		<h2>Calibrate Screen</h2>
+
+		<p>Open your inventory and adjust it so that your character card is touching the edges.</p>
+
+		<div class="dt-calibrate-image">
+			<!--<canvas id="calibrate-canvas" width="316" height="64"></canvas>-->
+			<img ng-src="{{calibrateImage}}" ng-if="calibrateImage" />
+		</div>
+
+		<div class="text-center">
+			<div class="controls">Width [{{data.hsize}}]:
+				<button ng-click="incBounds('hsize', -1)">-</button>
+				<button ng-click="incBounds('hsize', 1)">+</button>
+			</div>
+			<div class="controls">Height [{{data.vsize}}]:
+				<button ng-click="incBounds('vsize', -1)">-</button>
+				<button ng-click="incBounds('vsize', 1)">+</button>
+			</div>
+		</div>
+
+		<div class="actions">
+			<a class="dt-btn" ng-click="resetBounds()">Reset to Default</a>
+			<a class="dt-btn" ng-click="loadBounds()">Discard</a>
+			<a class="dt-btn dt-btn-submit" ng-click="updateBounds()">Save</a>
+		</div>
+	</div>
+</div>
