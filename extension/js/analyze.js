@@ -245,13 +245,16 @@ function runTest(test, source, width, height) {
 			test.diffImage = data.getImageDataUrl();
 			test.diffData = data;
 			if (test.status.isFlag) {
-				test.status.value = data.rawMisMatchPercentage < test.minimum;
+				test.status.value = data.rawMisMatchPercentage <= 100-test.minimum;
 				test.status.diff = data.rawMisMatchPercentage;
 			}
-			else if (data.rawMisMatchPercentage < test.minimum && (data.rawMisMatchPercentage < test.status.diff || test.status.value == test.value)) {
-				//console.log('Changed State', test.id, test.status);
-				test.status.value = test.value;
-				test.status.diff = data.rawMisMatchPercentage;
+			else {
+				if (test.stateIndex == 0) test.status.diff = 100; // Reset the diff value at the start of each loop
+				if (data.rawMisMatchPercentage <= 100-test.minimum && (data.rawMisMatchPercentage < test.status.diff || test.status.value == test.value)) {
+					if (test.output) console.log('Changed State', test.id, test.status);
+					test.status.value = test.value;
+					test.status.diff = data.rawMisMatchPercentage;
+				}
 			}
 			testComplete();
 		});
@@ -267,13 +270,13 @@ var statuses = {
 
 var captureSize = 17;
 var testMap = [
-	{id: 'inMenu', x: 0, y: 0, width: 10, height: 150, image: 'test/test_menu.png', minimun: 10, offset: false, ignoreColors: true, ignoreLess: true, output: false},
-	{id: 'isDead', x: -4, y: 23, width: 85, height: 64, image: 'test/test_dead.png', minimum: 40, ignoreColors: true, output: true, conditions: [
+	{id: 'inMenu', x: 0, y: 0, width: 10, height: 150, image: 'test/test_menu.png', minimun: 90, offset: false, ignoreColors: true, ignoreLess: true, output: false},
+	{id: 'isDead', x: -4, y: 23, width: 85, height: 64, image: 'test/test_dead.png', minimum: 60, ignoreColors: true, output: true, conditions: [
 		{key: 'inGame', value: true}
 	]},
 
 	// Control
-	{id: 'captureA', x: 30, y: 168, width: captureSize, height: captureSize, minimum: 70, states: [
+	{id: 'captureA', x: 30, y: 168, width: captureSize, height: captureSize, minimum: 25, states: [
 		{value: 1, image: 'test/test_capture_a_blue.png'},
 		{value: 0, image: 'test/test_capture_a_none.png'},
 		{value: -1, image: 'test/test_capture_a_red.png'}
@@ -282,7 +285,7 @@ var testMap = [
 		{key: 'mode', value: 'control'},
 		{key: 'inMenu', value: false}
 	], ignoreLess: true},
-	{id: 'captureB', x: 74, y: 170, width: captureSize, height: captureSize, minimum: 70, states: [
+	{id: 'captureB', x: 74, y: 170, width: captureSize, height: captureSize, minimum: 25, states: [
 		{value: 1, image: 'test/test_capture_b_blue.png'},
 		{value: 0, image: 'test/test_capture_b_none.png'},
 		{value: -1, image: 'test/test_capture_b_red.png'}
@@ -291,7 +294,7 @@ var testMap = [
 		{key: 'mode', value: 'control'},
 		{key: 'inMenu', value: false}
 	], ignoreLess: true},
-	{id: 'captureC', x: 118, y: 172, width: captureSize, height: captureSize, minimum: 70, states: [
+	{id: 'captureC', x: 118, y: 172, width: captureSize, height: captureSize, minimum: 25, states: [
 		{value: 1, image: 'test/test_capture_c_blue.png'},
 		{value: 0, image: 'test/test_capture_c_none.png'},
 		{value: -1, image: 'test/test_capture_c_red.png'}
@@ -338,7 +341,7 @@ for (var i=0; i<testMap.length; i++) {
 		//	var state = states[j];
 		var stateTest = JSON.parse(JSON.stringify(test));
 		//angular.copy(test, stateTest);
-		if (!test.minimum) stateTest.minimum = 30;
+		if (!test.minimum) stateTest.minimum = 70;
 		if (state.image) stateTest.image = state.image;
 		stateTest.value = state.value;
 		if (test.output) stateTest.output = test.output;
@@ -346,6 +349,7 @@ for (var i=0; i<testMap.length; i++) {
 		if (!test.conditions) stateTest.conditions = [];
 		if (test.offset == undefined) stateTest.offset = true;
 		stateTest.status = testStatus;
+		stateTest.stateIndex = j;
 
 		stateTest.compToImage = false;
 		stateTest.diffImage = false;

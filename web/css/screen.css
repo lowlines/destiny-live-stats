@@ -1,0 +1,103 @@
+#capture-image, #capture-video {
+	display: block;
+}
+label {
+	display: inline-block;
+}
+.view img, .view video {
+	max-width: 100%;
+}
+body {
+	margin: 0;
+	background: #12151c;
+	color: #fff;
+
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+}
+.tabs {
+	background: #2A333E;
+	padding: 0px 15px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.tabs label {
+	position: relative;
+	padding: 15px 10px;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-size: 0.8em;
+	color: rgba(245, 245, 245, 0.5);
+}
+.tabs label:hover, .tabs label.active {
+	color: #fff;
+}
+.tabs label.active:after {
+	content: '';
+	position: absolute;
+	height: 3px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #ffce1f;
+}
+.tabs input {
+	opacity: 0;
+	position: absolute;
+
+}
+a {
+	color: #ffce1f;
+	text-decoration: none;
+}
+.community-details {
+	font-size: 1.25rem;
+	padding-bottom: 18px;
+}
+.community-details:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.community-details .title {
+	float: left;
+}
+.community-description {
+	color: rgba(245,245,245,0.5);
+	font-size: 0.825rem;
+}
+.stream-details-right {
+	float: right;
+}
+.stream-wrapper {
+	display: flex;
+}
+.stream-container {
+	flex: 8 0;
+	padding: 20px 10px;
+}
+.stream-chat-gear-container {
+	flex: 4 0;
+	padding-right: 10px;
+}
+.stream-chat-gear-container .switcher {
+	display: flex;
+	padding-bottom: 1rem;
+}
+.stream-chat-gear-container .switcher .switch-button {
+	flex: 1 0;
+	height: 4rem;
+	line-height: 4rem;
+	color: rgba(245,245,245,0.25);
+	text-align: center;
+	cursor: default;
+
+	color: #f5f5f5;
+	border-bottom: 3px solid #ffce1f;
+}
+.view label {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+}
